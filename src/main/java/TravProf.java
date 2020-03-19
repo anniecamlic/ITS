@@ -1,5 +1,5 @@
 public class TravProf {
-    private static MedCond medCondInfo;
+    private MedCond medCondInfo;
     private String travelAgentID;
     private String firstName;
     private String lastName;
@@ -21,56 +21,47 @@ public class TravProf {
         this.paymentType = paymentType;
         this.medCondInfo = medCondInfo;
     }
-    public String getTravAgentID(){
-        return this.travelAgentID;
-    }
-    public String getFirstName(){
-        return this.firstName;
-    }
-    public String getLastName(){
-        return this.lastName;
-    }
-    public String getAddress(){
-        return this.address;
-    }
-    public String getPhone(){
-        return this.phone;
-    }
-    public double getTripCost(){
-        return this.tripCost;
-    }
-    public String getTravelType(){
-        return this.travelType;
-    }
-    public String getPaymentType(){
-        return this.paymentType;
-    }
-    public MedCond getMedCondInfo(){
-        return this.medCondInfo;
-    }
-    public void updateFirstName(String newName){
-        this.firstName = newName;
-    }
-    public void updateLastName(String newName){
-        this.lastName = newName;
-    }
-    public void updateAddress(String newAddress){
-        this.address = newAddress;
-    }
-    public void updatePhone(String newPhone){
-        this.phone = newPhone;
-    }
-    public void updateTripCost(Float newCost){
-        this.tripCost = newCost;
-    }
-    public void updateTravelType(String newTType){
-        this.travelType = newTType;
-    }
-    public void updatePaymentType(String newPType){
-        this.paymentType = newPType;
-    }
-    public void updateMedCondInfo(MedCond newMC){
-        this.medCondInfo = newMC;
-    }
+    public String getTravAgentID(){ return this.travelAgentID; }
+
+    public String getFirstName(){ return this.firstName; }
+
+    public String getLastName(){ return this.lastName; }
+
+    public String getAddress(){ return this.address; }
+
+    public String getPhone(){ return this.phone; }
+
+    public double getTripCost(){ return this.tripCost; }
+
+    public String getTravelType(){ return this.travelType; }
+
+    public String getPaymentType(){ return this.paymentType; }
+
+    public MedCond getMedCondInfo(){ return this.medCondInfo; }
+
+    public void updateFirstName(String newName){ this.firstName = newName; }
+
+    public void updateLastName(String newName){ this.lastName = newName; }
+
+    public void updateAddress(String newAddress){ this.address = newAddress; }
+
+    public void updatePhone(String newPhone){ this.phone = newPhone; }
+
+    public void updateTripCost(Float newCost){ this.tripCost = newCost; }
+
+    public void updateTravelType(String newTType){ this.travelType = newTType; }
+
+    public void updatePaymentType(String newPType){ this.paymentType = newPType; }
+
+    public void updateMedCondInfo(MedCond newMC){ this.medCondInfo = newMC; }
+
     public String toString() { return this.firstName + " " + this.lastName; }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TravProf)) return false;
+        TravProf profile = (TravProf) o;
+        return this.travelAgentID.equals(profile.travelAgentID)
+                && this.lastName.equals(profile.lastName);
+    }
 }
