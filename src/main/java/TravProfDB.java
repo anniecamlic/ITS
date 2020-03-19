@@ -11,7 +11,6 @@ import java.util.List;
 
 public class TravProfDB {
     public final String PATH;
-    private int currentTravelerIndex;
     private FileWriter writer;
     private BufferedReader reader;
     public List<TravProf> travelerList;
