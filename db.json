@@ -1,0 +1,1 @@
+[{"travelAgentID":"1","firstName":"John","lastName":"Doe","address":"20 Post Rd","phone":"203-345-2341","tripCost":456.0,"travelType":"Pleasure","paymentType":"Credit"},{"travelAgentID":"2","firstName":"Bob","lastName":"Smith","address":"25 Flat Rock","phone":"203-345-2321","tripCost":1023.0,"travelType":"Pleasure","paymentType":"Debit"}]
