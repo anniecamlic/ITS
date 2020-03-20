@@ -1,1 +1,98 @@
-[{"travelAgentID":"1","firstName":"John","lastName":"Doe","address":"20 Post Rd","phone":"203-345-2341","tripCost":456.0,"travelType":"Pleasure","paymentType":"Credit"},{"travelAgentID":"2","firstName":"Bob","lastName":"Smith","address":"25 Flat Rock","phone":"203-345-2321","tripCost":1023.0,"travelType":"Pleasure","paymentType":"Debit"}]
+[
+  {
+    "medCondInfo": {
+      "mdContact": "Dr. John Smith",
+      "mdPhone": "213-342-1239",
+      "algType": "Food",
+      "illType": "asthma"
+    },
+    "travelAgentID": "TA1",
+    "firstName": "John",
+    "lastName": "Doe",
+    "address": "20 Post Rd",
+    "phone": "203-345-2341",
+    "tripCost": 456.0,
+    "travelType": "Pleasure",
+    "paymentType": "Credit"
+  },
+  {
+    "medCondInfo": {
+      "mdContact": "Dr. John Doe",
+      "mdPhone": "213-342-1221",
+      "algType": "Food",
+      "illType": "other"
+    },
+    "travelAgentID": "TA2",
+    "firstName": "Bob",
+    "lastName": "Smith",
+    "address": "25 Flat Rock",
+    "phone": "203-345-2321",
+    "tripCost": 1023.0,
+    "travelType": "Pleasure",
+    "paymentType": "Debit"
+  },
+  {
+    "medCondInfo": {
+      "mdContact": "Dr. John Smith",
+      "mdPhone": "213-342-1239",
+      "algType": "Food",
+      "illType": "asthma"
+    },
+    "travelAgentID": "TA3",
+    "firstName": "Laura",
+    "lastName": "Berry",
+    "address": "23 Crane St",
+    "phone": "415-345-5435",
+    "tripCost": 2982.0,
+    "travelType": "Pleasure",
+    "paymentType": "Credit"
+  },
+  {
+    "medCondInfo": {
+      "mdContact": "Dr. John Doe",
+      "mdPhone": "213-342-1221",
+      "algType": "Food",
+      "illType": "other"
+    },
+    "travelAgentID": "TA3",
+    "firstName": "Kevin",
+    "lastName": "Anderson",
+    "address": "42 Crane St",
+    "phone": "415-516-3627",
+    "tripCost": 5234.0,
+    "travelType": "Business",
+    "paymentType": "Credit"
+  },
+  {
+    "medCondInfo": {
+      "mdContact": "Dr. Bob Smith",
+      "mdPhone": "806-435-9183",
+      "algType": "medication",
+      "illType": "diabetes"
+    },
+    "travelAgentID": "TA1",
+    "firstName": "Lawrence",
+    "lastName": "Lucas",
+    "address": "12 Boston Tpke",
+    "phone": "231-424-1938",
+    "tripCost": 2351.0,
+    "travelType": "Pleasure",
+    "paymentType": "Debit"
+  },
+  {
+    "medCondInfo": {
+      "mdContact": "Dr. Michelle Hunter",
+      "mdPhone": "718-142-2317",
+      "algType": "medication",
+      "illType": "other"
+    },
+    "travelAgentID": "TA1",
+    "firstName": "Lori",
+    "lastName": "Jacobs",
+    "address": "32 Palmer Pl",
+    "phone": "203-345-9889",
+    "tripCost": 9823,
+    "travelType": "Pleasure",
+    "paymentType": "Credit"
+  }
+]
