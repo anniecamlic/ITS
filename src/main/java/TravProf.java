@@ -55,7 +55,10 @@ public class TravProf {
 
     public void updateMedCondInfo(MedCond newMC){ this.medCondInfo = newMC; }
 
-    public String toString() { return this.firstName + " " + this.lastName; }
+    public String toString() {
+        return this.firstName + " " + this.lastName +
+                (this.medCondInfo != null ? " [" + this.medCondInfo.toString() + "]" : "");
+    }
 
     public boolean equals(Object o) {
         if (this == o) return true;
