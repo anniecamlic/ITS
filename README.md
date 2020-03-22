@@ -23,3 +23,6 @@ behind this distribution
 - [ ] half-page writeup of the difficulties that you encountered
 - [ ] half-page writeup of what you would do differently if you were asked to do another assignment of this
 scope
+- [ ] enforce `algType` to be one of `{ none, food, medication, other }`
+- [ ] enforce `illType` to be one of `{  none, heart, diabetes, asthma, other }`
+- [ ] enforce `travelType` to be either "business" or "casual"
