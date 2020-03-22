@@ -14,12 +14,17 @@ What to `.gitignore`:
 
 ## TODO
 
-- [ ] documented classes
-- [ ] test cases
+Legend:
+
+1. `A` = Annie's todo
+2. `C` = Cristian's todo
+
+- [ ] documented classes (A, C)
+- [ ] test cases (C)
 - [ ] half-page writeup of how the work was distributed among individual team members, and the rationale
-behind this distribution
-- [ ] total time spent on the implementation and testing of each clas
-- [ ] total time spent on testing the integration of the classes
-- [ ] half-page writeup of the difficulties that you encountered
+behind this distribution (A)
+- [ ] total time spent on the implementation and testing of each class (A, C)
+- [ ] total time spent on testing the integration of the classes (A, C)
+- [ ] half-page writeup of the difficulties that you encountered (A, C)
 - [ ] half-page writeup of what you would do differently if you were asked to do another assignment of this
-scope
+scope (A)
