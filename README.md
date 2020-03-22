@@ -18,8 +18,8 @@ What to `.gitignore`:
 - [ ] test cases
 - [ ] half-page writeup of how the work was distributed among individual team members, and the rationale
 behind this distribution
-- [ ] total time spent on the implementation and testing of each class
-- [ ] total time spent on testing the integration of the classes
+- [x] total time spent on the implementation and testing of each class
+- [x] total time spent on testing the integration of the classes
 - [ ] half-page writeup of the difficulties that you encountered
 - [ ] half-page writeup of what you would do differently if you were asked to do another assignment of this
 scope
