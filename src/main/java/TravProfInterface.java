@@ -5,116 +5,148 @@ import java.util.Scanner;
 public class TravProfInterface {
     private final String PATH;
     private TravProfDB db;
+    private Scanner scanner;
 
-    TravProfInterface (String path) throws IOException {
-        System.out.println("created interface instance!");
-        this.PATH = path;
-        this.db = new TravProfDB(path);
+    TravProfInterface (String PATH) throws IOException {
+        this.PATH = PATH;
+        this.db = new TravProfDB(PATH);
+        this.scanner = new Scanner(System.in);
     }
 
     public void run() throws IOException {
-        System.out.println("running...");
-        this.initDB();
-        this.getUserChoice();
+        initDB();
+        getUserChoice();
+    }
+
+    private void printMenu() {
+        final String MENU_TITLE = "========ACTIONS-MENU========";
+        final List<String> MENU = List.of(
+                "1 - create new traveler profile",
+                "2 - delete traveler profile",
+                "3 - update traveler profile",
+                "4 - display traveler profile",
+                "5 - display all traveler profiles",
+                "6 - write to database",
+                "7 - close app"
+        );
+
+        System.out.println(MENU_TITLE);
+        for (String item: MENU)
+            System.out.println(item);
+        System.out.println("============================");
     }
 
     private void getUserChoice() throws IOException {
-
-            //TODO: Check that I did this correctly. I am unsure of what to call for "delete traveler profile
-
-
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Actions: ");
-        System.out.println("1 - create new traveler profile");
-        System.out.println("2 - delete traveler profile");
-        System.out.println("3 - update traveler profile");
-        System.out.println("4 - display traveler profile");
-        System.out.println("5 - display all traveler profiles");
-        System.out.println("6 - write to DB");
-        System.out.println("7 - close app");
-
-        int input = Integer.parseInt(scanner.next());
+        int input;
         boolean isDone = false;
 
         while (!isDone) {
-            // TODO: print menu
+            printMenu();
+            input = Integer.parseInt(scanner.nextLine());
+
             switch(input) {
                 case 1:
                     createNewTravProf();
                     break;
                 case 2:
-                    //TODO
-                    // I don't know how to do this
+                    deleteTravProf();
                     break;
                 case 3:
                     updateTravProf();
+                    break;
                 case 4:
                     findTravProf();
+                    break;
                 case 5:
-                    //to call this we need the user input
-                    System.out.println("please enter travel agent ID");
-                    String travAgentID = scanner.next();
-                    displayAllTravProf(travAgentID);
+                    displayAllTravProf(getUserInput("Please enter travel agent ID:"));
+                    break;
                 case 6:
                     writeToDB(PATH);
+                    break;
                 case 7:
-                    //is this correct?
                     isDone = true;
                     System.out.println("Bye!");
-                    this.writeToDB(this.PATH);
+                    writeToDB(PATH);
                     break;
                 default:
-                    System.out.println("Invalid input. Try again...");
+                    System.out.println("Invalid input: \"" + input + "\". Try again...");
             }
+        }
+    }
+
+    private void deleteTravProf() {
+        String[] profileIdentifiers = getProfileIdentifiers();
+        String travAgentId = profileIdentifiers[0];
+        String lastName = profileIdentifiers[1];
+
+        boolean success = db.deleteProfile(travAgentId, lastName);
+
+        if (success) {
+            System.out.println("Profile with agent id " + travAgentId +
+                    " and last name " + lastName + " deleted!");
+        } else {
+            System.out.println("Profile with agent id " + travAgentId +
+                    " and last name " + lastName + " does not exist!");
         }
     }
 
     private void writeToDB(String path) throws IOException { this.db.writeAllTravProf(path); }
 
     private void findTravProf() {
-        /*
-            TODO: get travAgentId and lastName
-            call this.db.findProfile(travAgentId,lastName) to get the TravProf
-            call this.displayTravProf(TravProf)
-            DONE
-         */
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter Travel Agent ID: ");
-        String travAgentId = scanner.nextLine();
-        System.out.println();
-
-        System.out.print("Enter Last Name: ");
-        String lastName = scanner.nextLine();
-        System.out.println();
-
-        TravProf profile = this.db.findProfile(travAgentId,lastName);
-        this.displayTravProf(profile);
+        String[] profileIdentifiers = getProfileIdentifiers();
+        String travAgentId = profileIdentifiers[0];
+        String lastName = profileIdentifiers[1];
+        TravProf profile = db.findProfile(travAgentId,lastName);
+        displayTravProf(profile);
     }
 
-    private void displayTravProf(TravProf profile) { System.out.println(profile); }
-
-    private void displayAllTravProf(String travAgentId) {
-        List<TravProf> profiles = this.db.getTravList(travAgentId);
-        // TODO: is this correctly implemented?
-        for (int i = 0; i < profiles.size(); i++) {
-            this.displayTravProf(profiles.get(i));
+    private void displayTravProf(TravProf profile) {
+        if (profile != null) {
+            System.out.println(profile);
+        } else {
+            System.out.println("Profile does not exist :(");
         }
     }
 
+    private void displayAllTravProf(String travAgentId) {
+        List<TravProf> profiles = db.getTravList(travAgentId);
+        if (profiles.size() > 0) {
+            for (TravProf profile: db.getTravList(travAgentId))
+                displayTravProf(profile);
+        } else {
+            System.out.println("There are no traveler profiles associates with " +
+                    travAgentId + " in the database!");
+        }
+    }
+
+    private String[] getProfileIdentifiers() {
+        String travAgentId = getUserInput("Enter Travel Agent ID:");
+        String lastName = getUserInput("Enter last name:");
+        return new String[]{travAgentId, lastName};
+    }
+
+    // TODO
+    private void getTravelType() { }
+
+    // TODO
+    private void getAllergyType() { }
+
+    // TODO
+    private void getIllnessType() { }
+
     private void updateTravProf() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter Travel Agent ID: ");
-        String travAgentId = scanner.nextLine();
-        System.out.println();
+        String[] profileIdentifiers = getProfileIdentifiers();
+        String travAgentId = profileIdentifiers[0];
+        String lastName = profileIdentifiers[1];
 
-        System.out.print("Enter Last Name: ");
-        String lastName = scanner.nextLine();
-        System.out.println();
+        TravProf profile = db.findProfile(travAgentId,lastName);
 
-        TravProf profile = this.db.findProfile(travAgentId,lastName);
+        if (profile == null) {
+            System.out.println("Traveler profile does not exist!");
+            return;
+        }
 
-        System.out.println("Select Modifiable Attributes: ");
+        System.out.println("Select Modifiable Attributes:");
         System.out.println("1 - first name");
         System.out.println("2 - last name");
         System.out.println("3 - address");
@@ -124,63 +156,44 @@ public class TravProfInterface {
         System.out.println("7 - payment type");
         System.out.println("8 - medical condition information");
 
-        int input = Integer.parseInt(scanner.next());
+        int input = Integer.parseInt(scanner.nextLine());
 
         switch (input) {
             case 1:
-                System.out.println("enter new first name: ");
-                String newFirst = scanner.nextLine();
-                profile.updateFirstName(newFirst);
+                profile.updateFirstName(getUserInput("Enter new first name:"));
                 break;
             case 2:
-                System.out.println("enter new last name: ");
-                String newLast = scanner.nextLine();
-                profile.updateLastName(newLast);
+                profile.updateLastName(getUserInput("Enter new last name:"));
                 break;
             case 3:
-                System.out.println("enter new address: ");
-                String newAddress = scanner.nextLine();
-                profile.updateAddress(newAddress);
+                System.out.println("new address:");
+                String address = scanner.nextLine();
+                profile.updateAddress(address);
                 break;
             case 4:
-                System.out.println("enter new phone number: ");
-                String newPhone = scanner.nextLine();
-                profile.updatePhone(newPhone);
+                profile.updatePhone(getUserInput("Enter new phone:"));
                 break;
             case 5:
-                System.out.println("enter new trip cost: ");
-                Float newTripCost = Float.parseFloat(scanner.nextLine());
-                profile.updateTripCost(newTripCost);
+                profile.updateTripCost(Double.parseDouble(getUserInput("Enter new trip cost:")));
                 break;
             case 6:
-                System.out.println("enter new travel type: ");
-                String newTravelType = scanner.nextLine();
-                profile.updateTravelType(newTravelType);
+                profile.updateTravelType(getUserInput("Enter new travel type:"));
                 break;
             case 7:
-                System.out.println("enter new payment type: ");
-                String newPaymentType = scanner.nextLine();
-                profile.updatePaymentType(newPaymentType);
+                profile.updatePaymentType(getUserInput("Enter new payment type:"));
                 break;
             case 8:
                 this.updateMedCond();
-                break;
-            default:
                 break;
         }
     }
 
     private void updateMedCond() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter Travel Agent ID: ");
-        String travAgentId = scanner.nextLine();
-        System.out.println();
+        String[] profileIdentifiers = getProfileIdentifiers();
+        String travAgentId = profileIdentifiers[0];
+        String lastName = profileIdentifiers[1];
 
-        System.out.print("Enter Last Name: ");
-        String lastName = scanner.nextLine();
-        System.out.println();
-
-        TravProf profile = this.db.findProfile(travAgentId,lastName);
+        TravProf profile = db.findProfile(travAgentId,lastName);
         MedCond mc = profile.getMedCondInfo();
 
         System.out.println("Select Modifiable Attributes: ");
@@ -189,12 +202,10 @@ public class TravProfInterface {
         System.out.println("3 - allergy type");
         System.out.println("4 - illness type");
 
-        int input = Integer.parseInt(scanner.next());
+        int input = Integer.parseInt(scanner.nextLine());
         switch (input) {
             case 1:
-                System.out.println("enter new medical contact: ");
-                String newMedCon = scanner.nextLine();
-                mc.updateMdContact(newMedCon);
+                mc.updateMdContact(getUserInput("enter new medical contact:"));
                 break;
             case 2:
                 System.out.println("enter new medical contact phone: ");
@@ -211,77 +222,42 @@ public class TravProfInterface {
                 String newIllnessType = scanner.nextLine();
                 mc.updateIllType(newIllnessType);
                 break;
-            default:
-                break;
         }
 
     }
 
     public void initDB() throws IOException { this.db.initializeDatabase(); }
 
+    private String getUserInput(String msg) {
+        System.out.println(msg);
+        return scanner.nextLine();
+    }
+
     private void createNewTravProf() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Enter Travel Agent ID: ");
-        String travAgentId = scanner.nextLine();
-        System.out.println();
-
-        System.out.print("Enter First Name: ");
-        String firstName = scanner.nextLine();
-        System.out.println();
-
-        System.out.print("Enter Last Name ");
-        String lastName = scanner.nextLine();
-        System.out.println();
-
-        System.out.print("Enter Address: ");
+        String travAgentId = getUserInput("Enter Travel Agent ID:");
+        String firstName = getUserInput("Enter First Name:");
+        String lastName = getUserInput("Enter Last Name:");
+        String phone = getUserInput("Enter Phone Number:");
+        double tripCost = Double.parseDouble(getUserInput("Enter Trip Cost:"));
+        String travelType = getUserInput("Enter Travel Type:");
+        String paymentType = getUserInput("Enter Payment Type:");
+        // TODO fix
+        System.out.println("Enter address:");
         String address = scanner.nextLine();
-        System.out.println();
-
-        System.out.print("Enter Phone Number: ");
-        String phone = scanner.nextLine();
-        System.out.println();
-
-        System.out.print("Enter Trip Cost: ");
-        Double tripCost = Double.parseDouble(scanner.nextLine());
-        System.out.println();
-
-        System.out.print("Enter Travel Type: ");
-        String travelType = scanner.nextLine();
-        System.out.println();
-
-        System.out.print("Enter Payment Type: ");
-        String paymentType = scanner.nextLine();
-        System.out.println();
 
         MedCond mc = createNewMedCond();
 
-        TravProf profile = new TravProf(travAgentId,firstName,lastName,address,phone,tripCost,travelType,paymentType,mc);
-        this.db.insertNewProfile(profile);
-        System.out.println("Profile Created!");
+        TravProf profile = new TravProf(travAgentId,firstName,lastName,address.toString(),phone,tripCost,travelType,paymentType,mc);
+        db.insertNewProfile(profile);
 
+        System.out.println("Profile created for: " + firstName + " " + lastName);
     }
 
     private MedCond createNewMedCond() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Enter Medical Contact: ");
-        String medicalContact = scanner.nextLine();
-        System.out.println();
-
-        System.out.print("Enter Medical Contact Phone Number: ");
-        String medicalContactPhone = scanner.nextLine();
-        System.out.println();
-
-        System.out.print("Enter Allergy Type: ");
-        String allergyType = scanner.nextLine();
-        System.out.println();
-
-        System.out.print("Enter Illness Type: ");
-        String illnessType = scanner.nextLine();
-        System.out.println();
-
+        String medicalContact = getUserInput("Enter Medical Contact:");
+        String medicalContactPhone = getUserInput("Enter Medical Contact Phone Number:");
+        String allergyType = getUserInput("Enter Allergy Type:");
+        String illnessType = getUserInput("Enter Illness Type:");
         return new MedCond(medicalContact,medicalContactPhone,allergyType,illnessType);
-
     }
 }

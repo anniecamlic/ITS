@@ -47,7 +47,7 @@ public class TravProf {
 
     public void updatePhone(String newPhone){ this.phone = newPhone; }
 
-    public void updateTripCost(Float newCost){ this.tripCost = newCost; }
+    public void updateTripCost(double newCost){ this.tripCost = newCost; }
 
     public void updateTravelType(String newTType){ this.travelType = newTType; }
 

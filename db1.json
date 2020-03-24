@@ -8,7 +8,7 @@
     },
     "travelAgentID": "TA1",
     "firstName": "John",
-    "lastName": "Smith",
+    "lastName": "Doe",
     "address": "20 Post Rd",
     "phone": "203-345-2341",
     "tripCost": 456.0,
@@ -81,18 +81,18 @@
   },
   {
     "medCondInfo": {
-      "mdContact": "sdf",
-      "mdPhone": "sdf",
-      "algType": "sdf",
-      "illType": "sdf"
+      "mdContact": "Dr. Michelle Hunter",
+      "mdPhone": "718-142-2317",
+      "algType": "medication",
+      "illType": "other"
     },
-    "travelAgentID": "sdf",
-    "firstName": "sdf",
-    "lastName": "sdf",
-    "address": "sdf",
-    "phone": "sdf",
-    "tripCost": 123.0,
-    "travelType": "sdf",
-    "paymentType": "sdf"
+    "travelAgentID": "TA1",
+    "firstName": "Lori",
+    "lastName": "Jacobs",
+    "address": "32 Palmer Pl",
+    "phone": "203-345-9889",
+    "tripCost": 9823.0,
+    "travelType": "Pleasure",
+    "paymentType": "Credit"
   }
 ]
