@@ -50,11 +50,19 @@ public class TravProfDB {
         return -1;
     }
 
+    /**
+     * Returns a list of traveler profiles that have
+     * travAgentId as the agent id.
+     *
+     * @param travAgentId - traveler agent id to filter by
+     * @return list of traver profiles with id equal to travAgentId
+     */
     public List<TravProf> getTravList(String travAgentId) {
         return this.travelerList.stream() // converting the list to stream
                                 .filter(travProf -> travProf.getTravAgentID().equals(travAgentId)) // filter the stream to create a new stream
                                 .collect(Collectors.toList()); // collect the final stream and convert it to a List
     }
+
 
     public void writeAllTravProf() throws IOException { this.writeAllTravProf(this.PATH); }
 

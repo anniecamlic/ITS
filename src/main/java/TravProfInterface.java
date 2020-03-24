@@ -1,7 +1,6 @@
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Stream;
 
 public class TravProfInterface {
     private final String PATH;
@@ -20,14 +19,21 @@ public class TravProfInterface {
     }
 
     private void printMenu() {
-        System.out.println("Actions: ");
-        System.out.println("1 - create new traveler profile");
-        System.out.println("2 - delete traveler profile");
-        System.out.println("3 - update traveler profile");
-        System.out.println("4 - display traveler profile");
-        System.out.println("5 - display all traveler profiles");
-        System.out.println("6 - write to DB");
-        System.out.println("7 - close app");
+        final String MENU_TITLE = "========ACTIONS-MENU========";
+        final List<String> MENU = List.of(
+                "1 - create new traveler profile",
+                "2 - delete traveler profile",
+                "3 - update traveler profile",
+                "4 - display traveler profile",
+                "5 - display all traveler profiles",
+                "6 - write to database",
+                "7 - close app"
+        );
+
+        System.out.println(MENU_TITLE);
+        for (String item: MENU)
+            System.out.println(item);
+        System.out.println("============================");
     }
 
     private void getUserChoice() throws IOException {
@@ -36,7 +42,7 @@ public class TravProfInterface {
 
         while (!isDone) {
             printMenu();
-            input = Integer.parseInt(scanner.next());
+            input = Integer.parseInt(scanner.nextLine());
 
             switch(input) {
                 case 1:
@@ -63,15 +69,18 @@ public class TravProfInterface {
                     writeToDB(PATH);
                     break;
                 default:
-                    System.out.println("Invalid input. Try again...");
+                    System.out.println("Invalid input: \"" + input + "\". Try again...");
             }
         }
     }
 
     private void deleteTravProf() {
-        String travAgentId = getUserInput("Enter traveler agent id:");
-        String lastName = getUserInput("Enter last name:");
+        String[] profileIdentifiers = getProfileIdentifiers();
+        String travAgentId = profileIdentifiers[0];
+        String lastName = profileIdentifiers[1];
+
         boolean success = db.deleteProfile(travAgentId, lastName);
+
         if (success) {
             System.out.println("Profile with agent id " + travAgentId +
                     " and last name " + lastName + " deleted!");
@@ -147,7 +156,7 @@ public class TravProfInterface {
         System.out.println("7 - payment type");
         System.out.println("8 - medical condition information");
 
-        int input = Integer.parseInt(scanner.next());
+        int input = Integer.parseInt(scanner.nextLine());
 
         switch (input) {
             case 1:
@@ -157,7 +166,9 @@ public class TravProfInterface {
                 profile.updateLastName(getUserInput("Enter new last name:"));
                 break;
             case 3:
-                profile.updateAddress(getUserInput("Enter new address:"));
+                System.out.println("new address:");
+                String address = scanner.nextLine();
+                profile.updateAddress(address);
                 break;
             case 4:
                 profile.updatePhone(getUserInput("Enter new phone:"));
@@ -191,7 +202,7 @@ public class TravProfInterface {
         System.out.println("3 - allergy type");
         System.out.println("4 - illness type");
 
-        int input = Integer.parseInt(scanner.next());
+        int input = Integer.parseInt(scanner.nextLine());
         switch (input) {
             case 1:
                 mc.updateMdContact(getUserInput("enter new medical contact:"));
@@ -219,7 +230,7 @@ public class TravProfInterface {
 
     private String getUserInput(String msg) {
         System.out.println(msg);
-        return scanner.next();
+        return scanner.nextLine();
     }
 
     private void createNewTravProf() {
@@ -232,7 +243,7 @@ public class TravProfInterface {
         String paymentType = getUserInput("Enter Payment Type:");
         // TODO fix
         System.out.println("Enter address:");
-        String address = scanner.next();
+        String address = scanner.nextLine();
 
         MedCond mc = createNewMedCond();
 
