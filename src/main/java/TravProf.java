@@ -105,7 +105,7 @@ public class TravProf {
     /**
      * updates the TravProf object's trip cose
      */
-    public void updateTripCost(Float newCost){ this.tripCost = newCost; }
+    public void updateTripCost(double newCost){ this.tripCost = newCost; }
 
     /**
      * updates the TravProf object's travel type

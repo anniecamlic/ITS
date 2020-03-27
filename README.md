@@ -11,3 +11,18 @@
 
 What to `.gitignore`:
 - https://github.com/intellij-rust/intellij-rust/issues/1570
+
+## TODO
+
+- [ ] documented classes
+- [ ] test cases
+- [ ] half-page writeup of how the work was distributed among individual team members, and the rationale
+behind this distribution
+- [x] total time spent on the implementation and testing of each class
+- [x] total time spent on testing the integration of the classes
+- [ ] half-page writeup of the difficulties that you encountered
+- [ ] half-page writeup of what you would do differently if you were asked to do another assignment of this
+scope
+- [ ] enforce `algType` to be one of `{ none, food, medication, other }`
+- [ ] enforce `illType` to be one of `{  none, heart, diabetes, asthma, other }`
+- [ ] enforce `travelType` to be either "business" or "casual"
